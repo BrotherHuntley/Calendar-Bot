@@ -1,0 +1,40 @@
+body {
+    background-color: #2F2D2E;
+    color: #40B7AD;
+    font-weight: 600;
+}
+
+img {
+    align-self: center;
+}
+
+h1 {
+    line-height: 60px;
+}
+
+label {
+    font-size: 1.3rem;
+}
+
+input,textarea,select {
+    box-shadow: 3px 3px 2px #a58bd96a;
+    border: 2px solid #a58bd9;
+}
+
+.buttons {
+    color: rgb(85,85,85);
+}
+
+.button_element {
+    border: 2px solid #a58bd9;
+    border-radius: 20px;
+    padding: 6px;
+    font-weight: 600;
+    width: 100px;
+    transition: transform 0.3s ease-out;
+}
+
+
+.button_element:hover {
+    transform: scale(1.1);
+}
