@@ -16,7 +16,7 @@ label {
     font-size: 1.3rem;
 }
 
-input,textarea,select {
+input, textarea, select {
     box-shadow: 3px 3px 2px #a58bd96a;
     border: 2px solid #a58bd9;
 }
@@ -34,7 +34,16 @@ input,textarea,select {
     transition: transform 0.3s ease-out;
 }
 
-
 .button_element:hover {
     transform: scale(1.1);
+}
+
+.error {
+    display: inline;
+    color: red;
+    font-style: italic;
+}
+
+.noError {
+    display: none;
 }

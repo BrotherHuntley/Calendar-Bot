@@ -22,18 +22,21 @@
         <div class="form-row">
             <div class="form-group col-sm-12 col-md-6">
                 <label for="eventID">Event ID</label>
-                <input type="text" class="form-control" placeholder="123456">
+                <input type="text" class="form-control" placeholder="123456" id="eventId">
+                <small class="noError" id="eventIdError">Event ID is required</small>
             </div>
             <div class="form-group col-sm-12 col-md-6">
                 <label for="">Event Name</label>
-                <input type="text" class="form-control" placeholder="Event Name">
+                <input type="text" class="form-control" placeholder="Event Name"id="eventName">
+                <small class="noError" id="eventNameError">Event Name is required</small>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-sm-12 col-md-6">
                 <label for="">Location</label>
-                <input type="text" class="form-control" placeholder="Location">
+                <input type="text" class="form-control" placeholder="Location" id="location">
+                <small class="noError" id="locationError">Location is required</small>
             </div>
             <div class="form-group col-sm-12 col-md-6">
                 <label for="">Time Zone</label>
@@ -123,11 +126,16 @@
         <div class="form-row">
             <div class="form-group col-sm-12 col-md-4">
                 <label for="">Event Start Date / Time</label>
-                <input type="datetime-local" class="form-control">
+                <input type="datetime-local" class="form-control" id="startTime">
+                <small class="noError" id="startTimeError">Start Date / Time is required</small>
+                <small class="noError" id="switchError">Start Date / Time must be before End Date / Time</small>
+                <small class="noError" id="pastStartError">Start Date / Time must be after Current Date / Time</small>
             </div>
             <div class="form-group col-sm-12 col-md-4">
                 <label for="">Event End Date / Time</label>
-                <input type="datetime-local" class="form-control">
+                <input type="datetime-local" class="form-control"  id="endTime">
+                <small class="noError" id="endTimeError">End Date / Time is required</small>
+                <small class="noError" id="pastEndError">End Date / Time must be after Current Date / Time</small>
             </div>
 
             <div class="form-group col-sm-12 col-md-4">
@@ -143,13 +151,14 @@
         <div class="form-row">
             <div class="form-group col-sm-12">
                 <label for="Description">Event Description</label>
-                <textarea class="form-control" rows="3" placeholder="Enter even description, address, web address etc."></textarea>
+                <textarea class="form-control" rows="3" placeholder="Enter even description, address, web address etc." id="description"></textarea>
+                <small class="noError" id="descriptionError">Event Description is required</small>
               </div>
         </div>
 
         <div class="form-row buttons mt-4">
             <div class="form-group col-xs-2 mx-2">
-                <input type="button" onclick="onSubmit()" value="Submit" class="button_element">
+                <input type="submit" value="Submit" class="button_element">
             </div>
             <div class="form-group col-xs-2 mx-2">
                 <input type="reset" value="Reset" class="button_element">
