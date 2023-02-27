@@ -1,5 +1,5 @@
 function icsComplier(eventName, location, timeZone, startTimeDate, endTimeDate, reminderPref, eventDescription) {
-    var icsString = "BEGIN:VCALENDAR\nVERSION:2.0\nCALSCALE:GREGORIAN\nPRODID:Brandon\nMETHOD:PUBLISH\nX-PUBLISHED-TTL:PT1H\nBEGIN:VEVENT\n";
+    var icsString = "BEGIN:VCALENDAR\nVERSION:2.0\nCALSCALE:GREGORIAN\nPRODID:Calendar-Bot\nMETHOD:PUBLISH\nX-PUBLISHED-TTL:PT1H\nBEGIN:VEVENT\n";
     icsString += "UID:" + uidGenerator() + "\n";
     icsString += "SUMMARY:" + eventName + "\n";
     icsString += "DTSTAMP:" + dateTimeConverter(moment().utc().format()) + "\n";
