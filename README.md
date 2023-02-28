@@ -4,7 +4,7 @@ This main goal of this project was to create a simple website to create .ics and
 
 ## Project Description
 
-This website is designed to take user input, process it, then download the necessary files.
+This website is designed to take user inputed event details including: ID, Name, Date, Time, Reminder Period, and Description. The program then processes the data to download an .ics and .vcs file as well as a .txt file with a google calendar link. I plan to add software to output a txt file with usable html elements to embed in an email. Here is a brief description of how it was built:
 
 The HTML was built with a standard form utilizing [Bootstrap](https://getbootstrap.com/), nothing revolutionary here.
 
@@ -14,7 +14,7 @@ The JS is where the all "magic" happens. The script listens for the submit butto
 
 When submit is clicked the script takes the form data, formats it, and check for 2 types of error scenarios. The first error scenarion is an empty form element. The second error is regarding a problem with the enetered dates. The script will change the class on the error elements to show what the error is. If both error function return tru the program creates the .ics .vcs files and a .txt file with the google calendar link.
 
-The reset button return all fields to their default state, and clears any errors.
+The reset button returns all fields to their default state, and clears any errors.
 
 ## Credits
 
