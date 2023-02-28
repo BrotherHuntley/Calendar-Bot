@@ -20,27 +20,31 @@
 
     <form class="container" id="myForm" name="myForm">
         <div class="form-row">
+
             <div class="form-group col-sm-12 col-md-6">
                 <label for="eventID">Event ID</label>
                 <input type="text" class="form-control" placeholder="123456" id="eventId">
                 <small class="noError" id="eventIdError">Event ID is required</small>
             </div>
+
             <div class="form-group col-sm-12 col-md-6">
-                <label for="">Event Name</label>
+                <label for="eventName">Event Name</label>
                 <input type="text" class="form-control" placeholder="Event Name"id="eventName">
                 <small class="noError" id="eventNameError">Event Name is required</small>
             </div>
         </div>
 
         <div class="form-row">
+
             <div class="form-group col-sm-12 col-md-6">
-                <label for="">Location</label>
+                <label for="location">Location</label>
                 <input type="text" class="form-control" placeholder="Location" id="location">
                 <small class="noError" id="locationError">Location is required</small>
             </div>
+
             <div class="form-group col-sm-12 col-md-6">
-                <label for="">Time Zone</label>
-                <select type="text" class="form-control">
+                <label for="timeZone">Time Zone</label>
+                <select type="text" class="form-control" id="timeZone">
                     <option value="America/New_York">US &amp; Canada Eastern (-5:00) </option>
                     <option value="America/Indiana/Indianapolis">Indiana (East) (-5:00) </option>
                     <option value="America/Chicago">US &amp; Canada Central (-6:00) </option>
@@ -121,48 +125,56 @@
                     <option value="Pacific/Tongatapu">Tongatapu (+13:00)</option>
                 </select>
             </div>
+
         </div>
 
         <div class="form-row">
+
             <div class="form-group col-sm-12 col-md-4">
-                <label for="">Event Start Date / Time</label>
+                <label for="startTime">Event Start Date / Time</label>
                 <input type="datetime-local" class="form-control" id="startTime">
                 <small class="noError" id="startTimeError">Start Date / Time is required</small>
                 <small class="noError" id="switchError">Start Date / Time must be before End Date / Time</small>
                 <small class="noError" id="pastStartError">Start Date / Time must be after Current Date / Time</small>
             </div>
+
             <div class="form-group col-sm-12 col-md-4">
-                <label for="">Event End Date / Time</label>
+                <label for="endTime">Event End Date / Time</label>
                 <input type="datetime-local" class="form-control"  id="endTime">
                 <small class="noError" id="endTimeError">End Date / Time is required</small>
                 <small class="noError" id="pastEndError">End Date / Time must be after Current Date / Time</small>
             </div>
 
             <div class="form-group col-sm-12 col-md-4">
-                <label for="">Reminder Trigger</label>
-                <select type="text" class="form-control">
+                <label for="reminder">Reminder Trigger</label>
+                <select type="text" class="form-control" id="reminder">
                     <option value="hour">1 hour</option>
                     <option value="day" selected>1 day</option>
-                    
                 </select>
             </div>
+
         </div>
 
         <div class="form-row">
+
             <div class="form-group col-sm-12">
-                <label for="Description">Event Description</label>
+                <label for="description">Event Description</label>
                 <textarea class="form-control" rows="3" placeholder="Enter even description, address, web address etc." id="description"></textarea>
                 <small class="noError" id="descriptionError">Event Description is required</small>
               </div>
+
         </div>
 
         <div class="form-row buttons mt-4">
+
             <div class="form-group col-xs-2 mx-2">
                 <input type="submit" value="Submit" class="button_element">
             </div>
+
             <div class="form-group col-xs-2 mx-2">
                 <input type="reset" value="Reset" class="button_element">
             </div>
+            
         </div>
     </form>
 </body>

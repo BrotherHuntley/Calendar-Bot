@@ -21,8 +21,18 @@ input, textarea, select {
     border: 2px solid #a58bd9;
 }
 
+.error {
+    display: inline;
+    color: red;
+    font-style: italic;
+}
+
+.noError {
+    display: none;
+}
+
 .buttons {
-    color: rgb(85,85,85);
+    color: #555555;
 }
 
 .button_element {
@@ -36,14 +46,4 @@ input, textarea, select {
 
 .button_element:hover {
     transform: scale(1.1);
-}
-
-.error {
-    display: inline;
-    color: red;
-    font-style: italic;
-}
-
-.noError {
-    display: none;
 }

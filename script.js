@@ -1,3 +1,4 @@
+//function inputs information required or an ics or vcs file and outputs the formatted string 
 function icsComplier(eventName, location, timeZone, startTimeDate, endTimeDate, reminderPref, eventDescription) {
     var icsString = "BEGIN:VCALENDAR\nVERSION:2.0\nCALSCALE:GREGORIAN\nPRODID:Calendar-Bot\nMETHOD:PUBLISH\nX-PUBLISHED-TTL:PT1H\nBEGIN:VEVENT\n";
     icsString += "UID:" + uidGenerator() + "\n";
@@ -13,6 +14,7 @@ function icsComplier(eventName, location, timeZone, startTimeDate, endTimeDate, 
     return icsString
 }
 
+//function inputs information required or a google calendar link and outputs the link 
 function googleCompiler(eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription) {
     var googleString = "https://www.google.com/calendar/render?action=TEMPLATE"
     googleString += "&text=" + encodeURIComponent(eventName.trim());
@@ -23,6 +25,7 @@ function googleCompiler(eventName, location, timeZone, startTimeDate, endTimeDat
     return googleString
 }
 
+//function returns a random hex UID formatted xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (8)-(4)-(4)-(4)-(12)  
 function uidGenerator() {
     var uid = "";
     for (var i = 0; i < 36; i++) {
@@ -35,6 +38,7 @@ function uidGenerator() {
     return uid;
 }
 
+//function formats the date and time received from the form into a format readable by moment
 function dateTimeConverter(dateTime) {
     dateTime = dateTime.replaceAll('-', '');
     dateTime = dateTime.replaceAll(':', '');
@@ -42,6 +46,7 @@ function dateTimeConverter(dateTime) {
     return dateTime
 }
 
+//function prints the ics and vcs file for download and a txt file for the google link 
 function createFile(icsString, googleString, eventID) {
     var blob = new Blob([icsString], {
         type: "text/plain;charset=utf-8",
@@ -55,6 +60,7 @@ function createFile(icsString, googleString, eventID) {
     saveAs(blob, eventID + ".txt");
 }
 
+//function checking if all of the form is complete, outputing a boolean
 function completeFormCheck(form) {
     var goodNotGood = true;
     for (i = 0; i < form.length; i++) {
@@ -69,6 +75,7 @@ function completeFormCheck(form) {
     return goodNotGood;
 }
 
+//function checking the start and end dates are in the future and the end date is after start date, outputs boolean
 function dateOrderCheck(startTimeDate, endTimeDate, timeZone) {
     var goodNotGood = true;
     var startDateMoment = moment.tz(startTimeDate.replace('T', ' '), timeZone).utc().format();
@@ -90,11 +97,13 @@ function dateOrderCheck(startTimeDate, endTimeDate, timeZone) {
     return goodNotGood;
 }
 
+//function to display an error if any error populates (not used currently)
 function errorMessage() {
 }
 
 var form = document.getElementById("myForm");
 
+//if submit is selected, receives form data, compiles, checks for errors then prints
 form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -118,6 +127,7 @@ form.addEventListener("submit", function (event) {
 
 })
 
+//if reset is selected, clears all fields and removes error warnings
 form.addEventListener("reset", function (event) {
     for (i = 0; i < form.length; i++) {
         var resetElement = document.getElementById(form.elements[i].id + 'Error');
