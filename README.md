@@ -23,7 +23,7 @@ This project could not have been done without:
 [moment](https://momentjs.com/) for handling timezones (phew), 
 [tutorialspoint](https://www.tutorialspoint.com/how-to-create-and-save-text-file-in-javascript/) for a great article on printing to a txt file, 
 [alluregraphicdesign](https://pixabay.com/users/alluregraphicdesign-945398/) for the logo, 
-[Memed_Nurrohmad](https://pixabay.com/users/memed_nurrohmad-3307648/) also for the logo.
+and [Memed_Nurrohmad](https://pixabay.com/users/memed_nurrohmad-3307648/) also for the logo.
 
 ## License
 
