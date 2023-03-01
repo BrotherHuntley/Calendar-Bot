@@ -6,7 +6,7 @@ function icsComplier(eventName, location, timeZone, startTimeDate, endTimeDate, 
     icsString += "DTSTAMP:" + dateTimeConverter(moment().utc().format()) + "\n";
     icsString += "DTSTART:" + dateTimeConverter(moment.tz(startTimeDate.replace('T', ' '), timeZone).utc().format()) + "\n";
     icsString += "DTEND:" + dateTimeConverter(moment.tz(endTimeDate.replace('T', ' '), timeZone).utc().format()) + "\n";
-    icsString += "DESCRIPTION;ENCODING=QUOTED-PRINTABLE:" + eventDescription.replaceAll('\n','=0D=0A') + "\n";
+    icsString += "DESCRIPTION:" + eventDescription.replaceAll('\n','\\n') + "\n";
     icsString += "LOCATION:" + location + "\n";
     icsString += "BEGIN:VALARM\nACTION:DISPLAY\n";
     icsString += "TRIGGER:" + (reminderPref === "hour" ? "-PT60M\n" : "-PT1440M\n");
