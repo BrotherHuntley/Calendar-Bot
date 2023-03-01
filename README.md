@@ -4,7 +4,7 @@ This main goal of this project was to create a simple website to create .ics and
 
 ## Project Description
 
-This website is designed to take user input, process it, then download the necessary files.
+This website is designed to take user inputed event details including: ID, Name, Date, Time, Reminder Period, and Description. The program then processes the data to download an .ics and .vcs file as well as a .txt file with a google calendar link. I plan to add software to output a txt file with usable html elements to embed in an email. Here is a brief description of how it was built:
 
 The HTML was built with a standard form utilizing [Bootstrap](https://getbootstrap.com/), nothing revolutionary here.
 
@@ -14,7 +14,7 @@ The JS is where the all "magic" happens. The script listens for the submit butto
 
 When submit is clicked the script takes the form data, formats it, and check for 2 types of error scenarios. The first error scenarion is an empty form element. The second error is regarding a problem with the enetered dates. The script will change the class on the error elements to show what the error is. If both error function return tru the program creates the .ics .vcs files and a .txt file with the google calendar link.
 
-The reset button return all fields to their default state, and clears any errors.
+The reset button returns all fields to their default state, and clears any errors.
 
 ## Credits
 
@@ -29,4 +29,24 @@ https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/m
 https://www.maxkohler.com/posts/calendar-links/
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT License](https://choosealicense.com/licenses/mit/)
+
+Copyright (c) [2023] [Brandon Huntley]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
