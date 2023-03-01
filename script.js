@@ -37,7 +37,6 @@ function outlookCompilier(eventName, location, timeZone, startTimeDate, endTimeD
     return outlook365URL;
 }
 
-//https://calendar.yahoo.com/?v=60&TITLE=Birthday&ST=20201231T193000&ET=20201231T223000&DESC=With%20clowns%20and%20stuff&in_loc=North%20Pole&inv_list=John+Doe+%3Cjohn@example.com%3E,Jane+Doe+%3Cjane@example.com%3E
 
 function yahooCompiler (eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription) {
     var yahooURL = "https://calendar.yahoo.com/?v=60"
