@@ -6,7 +6,7 @@ function icsComplier(eventName, location, timeZone, startTimeDate, endTimeDate, 
     icsString += "DTSTAMP:" + dateTimeConverter(moment().utc().format()) + "\n";
     icsString += "DTSTART:" + dateTimeConverter(moment.tz(startTimeDate.replace('T', ' '), timeZone).utc().format()) + "\n";
     icsString += "DTEND:" + dateTimeConverter(moment.tz(endTimeDate.replace('T', ' '), timeZone).utc().format()) + "\n";
-    icsString += "DESCRIPTION:" + eventDescription + "\n";
+    icsString += "DESCRIPTION;ENCODING=QUOTED-PRINTABLE:" + eventDescription.replaceAll('\n','=0D=0A') + "\n";
     icsString += "LOCATION:" + location + "\n";
     icsString += "BEGIN:VALARM\nACTION:DISPLAY\n";
     icsString += "TRIGGER:" + (reminderPref === "hour" ? "-PT60M\n" : "-PT1440M\n");
@@ -106,7 +106,7 @@ var form = document.getElementById("myForm");
 //if submit is selected, receives form data, compiles, checks for errors then prints
 form.addEventListener("submit", function (event) {
     event.preventDefault();
-
+    
     var eventID = form.elements[0].value;
     var eventName = form.elements[1].value;
     var location = form.elements[2].value;
@@ -121,8 +121,6 @@ form.addEventListener("submit", function (event) {
 
     var completeFormBool = completeFormCheck(form);
     var dateOkBool = dateOrderCheck(startTimeDate, endTimeDate, timeZone);
-    console.log(completeFormBool);
-    console.log(dateOkBool);
     completeFormBool && dateOkBool ? createFile(icsString, googleString, eventID):errorMessage();
 
 })
