@@ -38,12 +38,29 @@ input, textarea, select {
 .button_element {
     border: 2px solid #a58bd9;
     border-radius: 20px;
-    padding: 6px;
+    padding: 6px 15px;
     font-weight: 600;
-    width: 100px;
     transition: transform 0.3s ease-out;
 }
 
 .button_element:hover {
     transform: scale(1.1);
+}
+
+.hideCode {
+    display: none;
+}
+
+.showCode {
+    display: block;
+    margin-block: 20px;
+}
+
+#insertCode {
+    background-color: #a58bd9;
+    color: #2F2D2E;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    overflow-wrap: break-word;
 }
