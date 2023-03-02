@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="./Images/Favicon.png" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -188,12 +189,25 @@
     </form>
 
     <div class="container">
-        <div class="hideCode" id="codeDisplay">
-            <p id="insertCode"></p>
+        <div class="row flex-wrap-reverse">
+            <div class="col-12 col-md-6">
+                <div class="hideCode" id="codeDisplay">
+                    <p>HTML</p>
+                    <span class="hideCode" id="copiedNotification">HTML copied</span>
+                    <p id="insertCode"></p>
+                    <button id="copyHTML" onClick="copyHTML()"><i class="fa fa-clipboard"
+                            aria-hidden="true"></i></button>
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="hideCode" id="codePreview">
+                    <p>Preview</p>
+                    <div id="previewCode"></div>
+                </div>
+            </div>
         </div>
     </div>
-
-
 
 </body>
 

@@ -40,11 +40,11 @@ function outlookCompilier(eventName, location, timeZone, startTimeDate, endTimeD
 
 function yahooCompiler (eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription) {
     var yahooURL = "https://calendar.yahoo.com/?v=60"
-    yahooURL += "&TITLE" + encodeURIComponent(eventName.trim());
+    yahooURL += "&TITLE=" + encodeURIComponent(eventName.trim());
     yahooURL += "&ST=" + dateTimeConverter(moment.tz(startTimeDate.replace('T', ' '), timeZone).utc().format());
     yahooURL += "&ET=" + dateTimeConverter(moment.tz(endTimeDate.replace('T', ' '), timeZone).utc().format());
     yahooURL += "&DESC=" + encodeURIComponent(eventDescription.trim());
-    yahooURL += "&in_loc=" + encodeURIComponent(location.trim()) + 'E';
+    yahooURL += "&in_loc=" + encodeURIComponent(location.trim());
     return yahooURL;
 }
 
@@ -122,18 +122,29 @@ function dateOrderCheck(startTimeDate, endTimeDate, timeZone) {
 
 function generateCode(icsString, googleURL, outlook365URL, yahooURL) {
     var icsURL = 'data:text/calendar;charset=utf-8,' + icsString.replaceAll('\n','%0A');
-    var code = '&lt;table role=\"presentation\" style=\"text-align:center; width:100%; margin-block:20px;\"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=\"margin-inline:auto\"&gt;&lt;p style=\"margin-bottom:0;\"&gt;Add event to your calendar&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table style=\"margin-inline:auto;\"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=\"width:30px\"&gt;'
-    code += '&lt;a href=\"' + icsURL + '\"&gt;Apple&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px\"&gt;'
-    code += '&lt;a href=\"' + googleURL + '\" target=\"_blank\"&gt;Google&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px\"&gt;'
-    code += '&lt;a href=\"' + outlook365URL + '\" target=\"_blank\"&gt;Office 365&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px\"&gt;'
-    code += '&lt;a href=\"' + icsURL + '\"&gt;Outlook&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px\"&gt;'
-    code += '&lt;a href=\"' + yahooURL + '\" target=\"_blank\"&gt;Yahoo&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;'
-    document.getElementById('codeDisplay').className = "showCode"
+    var code = '&lt;table role=\"presentation\" style=\"text-align:center; width:100%; margin-block:20px;\"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=\"margin-inline:auto\"&gt;&lt;p style=\"margin-bottom:10px;\"&gt;Add event to your calendar&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table style=\"margin-inline:auto;\"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + icsURL + '\"&gt;&lt;img src=\"./Images/appleLogo.png\" style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + googleURL + '\" target=\"_blank\"&gt;&lt;img src=\"./Images/googleLogo.png\" style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + outlook365URL + '\" target=\"_blank\"&gt;&lt;img src=\"./Images/office365Logo.png"\ style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + icsURL + '\"&gt;&lt;img src=\"./Images/outlookLogo.png\" style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + yahooURL + '\" target=\"_blank\"&gt;&lt;img src=\"./Images/yahooLogo.jpg\" style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;'
+    document.getElementById('codeDisplay').className = "showCode";
+    document.getElementById('codePreview').className = "showCode";
     document.getElementById("insertCode").innerHTML = code;
+    document.getElementById("previewCode").innerHTML = code.replaceAll('&lt;', '<').replaceAll('&gt;', '>');
 }
 
 //function to display an error if any error populates (not used currently)
 function errorMessage() {
+}
+
+function copyHTML () {
+    navigator.clipboard.writeText(document.getElementById("previewCode").innerHTML);
+    document.getElementById('copiedNotification').className = "showNotification";
+    setTimeout(function(){
+        document.getElementById('copiedNotification').className = "hideCode";
+    }, 1000);
+
 }
 
 var form = document.getElementById("myForm");
@@ -141,7 +152,7 @@ var form = document.getElementById("myForm");
 //if submit is selected, receives form data, compiles, checks for errors then prints
 form.addEventListener("submit", function (event) {
     event.preventDefault();
-    
+    console.log(event.submitter.id)
     var eventID = form.elements[0].value;
     var eventName = form.elements[1].value;
     var location = form.elements[2].value;
@@ -155,11 +166,15 @@ form.addEventListener("submit", function (event) {
     var googleURL = googleCompiler(eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription);
     var outlook365URL = outlookCompilier(eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription);
     var yahooURL = yahooCompiler (eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription);
-
+    
     var completeFormBool = completeFormCheck(form);
     var dateOkBool = dateOrderCheck(startTimeDate, endTimeDate, timeZone);
-    completeFormBool && dateOkBool ? createFile(icsString, googleString, eventID):errorMessage();
-
+    if(event.submitter.id === "submit") {
+        completeFormBool && dateOkBool ? createFile(icsString, googleURL, eventID):errorMessage();
+    } else {
+        completeFormBool && dateOkBool ? generateCode(icsString, googleURL, outlook365URL, yahooURL) : errorMessage();
+    }
+       
 })
 
 //if reset is selected, clears all fields and removes error warnings
@@ -174,4 +189,5 @@ form.addEventListener("reset", function (event) {
     document.getElementById('pastStartError').className = "noError"
     document.getElementById('pastEndError').className = "noError"
     document.getElementById('codeDisplay').className = "hideCode"
+    document.getElementById('codePreview').className = "hideCode"
 })
