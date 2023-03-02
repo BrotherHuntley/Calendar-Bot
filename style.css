@@ -38,12 +38,58 @@ input, textarea, select {
 .button_element {
     border: 2px solid #a58bd9;
     border-radius: 20px;
-    padding: 6px;
+    padding: 6px 15px;
     font-weight: 600;
-    width: 100px;
     transition: transform 0.3s ease-out;
 }
 
 .button_element:hover {
     transform: scale(1.1);
+}
+
+.hideCode {
+    display: none;
+}
+
+.showCode {
+    display: block;
+    margin-block: 20px;
+}
+
+#insertCode {
+    background-color: #ffffff;
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 4px;
+    box-shadow: 3px 3px 2px #a58bd96a;
+    font-size: 0.8rem;
+    overflow-wrap: break-word;
+    height: 175px;
+    overflow-y: scroll;
+}
+
+#copyHTML {
+    position: absolute;
+    top: 70px;
+    right:40px;
+    border-radius: 4px;
+    box-shadow: 3px 3px 2px #a58bd96a;
+    border: 2px solid #a58bd9;
+}
+
+.showNotification {
+    display: inline-block;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    font-size: 12px;
+}
+
+#previewCode {
+    background-color: #ffffff;
+    color: #000;
+    box-shadow: 3px 3px 2px #a58bd96a;
+    border-radius: 4px;
+    padding-block: 25px;
+    height: 175px;
 }

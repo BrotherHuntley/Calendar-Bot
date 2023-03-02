@@ -16,13 +16,36 @@ function icsComplier(eventName, location, timeZone, startTimeDate, endTimeDate, 
 
 //function inputs information required or a google calendar link and outputs the link 
 function googleCompiler(eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription) {
-    var googleString = "https://www.google.com/calendar/render?action=TEMPLATE"
-    googleString += "&text=" + encodeURIComponent(eventName.trim());
-    googleString += "&dates=" + dateTimeConverter(moment.tz(startTimeDate.replace('T', ' '), timeZone).utc().format());
-    googleString += "%2F" + dateTimeConverter(moment.tz(endTimeDate.replace('T', ' '), timeZone).utc().format());
-    googleString += "&details=" + encodeURIComponent(eventDescription.trim());
-    googleString += "&location=" + encodeURIComponent(location.trim())
-    return googleString
+    var googleURL = "https://www.google.com/calendar/render?action=TEMPLATE"
+    googleURL += "&text=" + encodeURIComponent(eventName.trim());
+    googleURL += "&dates=" + dateTimeConverter(moment.tz(startTimeDate.replace('T', ' '), timeZone).utc().format());
+    googleURL += "%2F" + dateTimeConverter(moment.tz(endTimeDate.replace('T', ' '), timeZone).utc().format());
+    googleURL += "&details=" + encodeURIComponent(eventDescription.trim());
+    googleURL += "&location=" + encodeURIComponent(location.trim());
+    return googleURL
+}
+
+function outlookCompilier(eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription) {
+    var outlook365URL = "https://outlook.office.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent"
+    var allDaySelector = startTimeDate.slice(0,10) === endTimeDate.slice(0,10) ? 'false': 'true'
+    outlook365URL += "&startdt=" + moment.tz(startTimeDate.replace('T', ' '), timeZone).utc().format();
+    outlook365URL += "&enddt=" + moment.tz(endTimeDate.replace('T', ' '), timeZone).utc().format();
+    outlook365URL += "&allday=" + allDaySelector;
+    outlook365URL += "&subject=" + encodeURIComponent(eventName.trim());
+    outlook365URL += "&body=" + encodeURIComponent(eventDescription.trim());
+    outlook365URL += "&location=" + encodeURIComponent(location.trim());
+    return outlook365URL;
+}
+
+
+function yahooCompiler (eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription) {
+    var yahooURL = "https://calendar.yahoo.com/?v=60"
+    yahooURL += "&TITLE=" + encodeURIComponent(eventName.trim());
+    yahooURL += "&ST=" + dateTimeConverter(moment.tz(startTimeDate.replace('T', ' '), timeZone).utc().format());
+    yahooURL += "&ET=" + dateTimeConverter(moment.tz(endTimeDate.replace('T', ' '), timeZone).utc().format());
+    yahooURL += "&DESC=" + encodeURIComponent(eventDescription.trim());
+    yahooURL += "&in_loc=" + encodeURIComponent(location.trim());
+    return yahooURL;
 }
 
 //function returns a random hex UID formatted xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx (8)-(4)-(4)-(4)-(12)  
@@ -47,14 +70,14 @@ function dateTimeConverter(dateTime) {
 }
 
 //function prints the ics and vcs file for download and a txt file for the google link 
-function createFile(icsString, googleString, eventID) {
+function createFile(icsString, googleURL, eventID) {
     var blob = new Blob([icsString], {
         type: "text/plain;charset=utf-8",
     });
     saveAs(blob, eventID + ".ics");
     saveAs(blob, eventID + ".vcs");
 
-    var blob = new Blob([googleString], {
+    var blob = new Blob([googleURL], {
         type: "text/plain;charset=utf-8",
     });
     saveAs(blob, eventID + ".txt");
@@ -86,7 +109,7 @@ function dateOrderCheck(startTimeDate, endTimeDate, timeZone) {
     } else {
         document.getElementById('switchError').className = "noError"
     }
-    
+
     if (!moment().isBefore(startDateMoment) && startDateMoment !== "Invalid date") {
         document.getElementById('pastStartError').className = "error"
         goodNotGood = false;
@@ -97,8 +120,31 @@ function dateOrderCheck(startTimeDate, endTimeDate, timeZone) {
     return goodNotGood;
 }
 
+function generateCode(icsString, googleURL, outlook365URL, yahooURL) {
+    var icsURL = 'data:text/calendar;charset=utf-8,' + icsString.replaceAll('\n','%0A');
+    var code = '&lt;table role=\"presentation\" style=\"text-align:center; width:100%; margin-block:20px;\"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=\"margin-inline:auto\"&gt;&lt;p style=\"margin-bottom:10px;\"&gt;Add event to your calendar&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;table style=\"margin-inline:auto;\"&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + icsURL + '\"&gt;&lt;img src=\"./Images/appleLogo.png\" style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + googleURL + '\" target=\"_blank\"&gt;&lt;img src=\"./Images/googleLogo.png\" style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + outlook365URL + '\" target=\"_blank\"&gt;&lt;img src=\"./Images/office365Logo.png"\ style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + icsURL + '\"&gt;&lt;img src=\"./Images/outlookLogo.png\" style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;td style=\"width:30px;padding:0 15px;\"&gt;'
+    code += '&lt;a href=\"' + yahooURL + '\" target=\"_blank\"&gt;&lt;img src=\"./Images/yahooLogo.jpg\" style=\"width:30px\"&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;'
+    document.getElementById('codeDisplay').className = "showCode";
+    document.getElementById('codePreview').className = "showCode";
+    document.getElementById("insertCode").innerHTML = code;
+    document.getElementById("previewCode").innerHTML = code.replaceAll('&lt;', '<').replaceAll('&gt;', '>');
+}
+
 //function to display an error if any error populates (not used currently)
 function errorMessage() {
+}
+
+function copyHTML () {
+    navigator.clipboard.writeText(document.getElementById("previewCode").innerHTML);
+    document.getElementById('copiedNotification').className = "showNotification";
+    setTimeout(function(){
+        document.getElementById('copiedNotification').className = "hideCode";
+    }, 1000);
+
 }
 
 var form = document.getElementById("myForm");
@@ -106,7 +152,7 @@ var form = document.getElementById("myForm");
 //if submit is selected, receives form data, compiles, checks for errors then prints
 form.addEventListener("submit", function (event) {
     event.preventDefault();
-    
+    console.log(event.submitter.id)
     var eventID = form.elements[0].value;
     var eventName = form.elements[1].value;
     var location = form.elements[2].value;
@@ -117,23 +163,31 @@ form.addEventListener("submit", function (event) {
     var eventDescription = form.elements[7].value;
 
     var icsString = icsComplier(eventName, location, timeZone, startTimeDate, endTimeDate, reminderPref, eventDescription);
-    var googleString = googleCompiler(eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription);
-
+    var googleURL = googleCompiler(eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription);
+    var outlook365URL = outlookCompilier(eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription);
+    var yahooURL = yahooCompiler (eventName, location, timeZone, startTimeDate, endTimeDate, eventDescription);
+    
     var completeFormBool = completeFormCheck(form);
     var dateOkBool = dateOrderCheck(startTimeDate, endTimeDate, timeZone);
-    completeFormBool && dateOkBool ? createFile(icsString, googleString, eventID):errorMessage();
-
+    if(event.submitter.id === "submit") {
+        completeFormBool && dateOkBool ? createFile(icsString, googleURL, eventID):errorMessage();
+    } else {
+        completeFormBool && dateOkBool ? generateCode(icsString, googleURL, outlook365URL, yahooURL) : errorMessage();
+    }
+       
 })
 
 //if reset is selected, clears all fields and removes error warnings
 form.addEventListener("reset", function (event) {
     for (i = 0; i < form.length; i++) {
         var resetElement = document.getElementById(form.elements[i].id + 'Error');
-        if (resetElement !== null && resetElement.className === "error"){
+        if (resetElement !== null && resetElement.className === "error") {
             resetElement.className = "noError";
         }
     }
     document.getElementById('switchError').className = "noError"
     document.getElementById('pastStartError').className = "noError"
     document.getElementById('pastEndError').className = "noError"
+    document.getElementById('codeDisplay').className = "hideCode"
+    document.getElementById('codePreview').className = "hideCode"
 })

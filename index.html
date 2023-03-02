@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="./Images/Favicon.png" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Calendar Bot</title>
 </head>
@@ -29,7 +30,7 @@
 
             <div class="form-group col-sm-12 col-md-6">
                 <label for="eventName">Event Name</label>
-                <input type="text" class="form-control" placeholder="Event Name"id="eventName">
+                <input type="text" class="form-control" placeholder="Event Name" id="eventName">
                 <small class="noError" id="eventNameError">Event Name is required</small>
             </div>
         </div>
@@ -53,7 +54,8 @@
                     <option value="America/Los_Angeles">US &amp; Canada Pacific (-8:00) </option>
                     <option value="America/Juneau">US Alaska (-9:00) </option>
                     <option value="Pacific/Honolulu">US Hawaii (-10:00) </option>
-                    <option value="Pacific/Kwajalein">Kwajalein, Eniwetok, International Date Line West (-12:00)</option>
+                    <option value="Pacific/Kwajalein">Kwajalein, Eniwetok, International Date Line West (-12:00)
+                    </option>
                     <option value="America/Tijuana">Tijuana, Baja California (-8:00) </option>
                     <option value="America/Chihuahua">Chihuahua, La Paz, Mazatlan (-7:00) </option>
                     <option value="America/Mexico_City">Guadalajara, Mexico City, Monterrey (-6:00) </option>
@@ -140,7 +142,7 @@
 
             <div class="form-group col-sm-12 col-md-4">
                 <label for="endTime">Event End Date / Time</label>
-                <input type="datetime-local" class="form-control"  id="endTime">
+                <input type="datetime-local" class="form-control" id="endTime">
                 <small class="noError" id="endTimeError">End Date / Time is required</small>
                 <small class="noError" id="pastEndError">End Date / Time must be after Current Date / Time</small>
             </div>
@@ -156,41 +158,70 @@
         </div>
 
         <div class="form-row">
-
             <div class="form-group col-sm-12">
                 <label for="description">Event Description</label>
-                <textarea class="form-control" rows="3" placeholder="Enter even description, address, web address etc." id="description"></textarea>
+                <textarea class="form-control" rows="3" placeholder="Enter even description, address, web address etc."
+                    id="description"></textarea>
                 <small class="noError" id="descriptionError">Event Description is required</small>
-              </div>
-
+            </div>
         </div>
 
-        <div class="form-row buttons mt-4">
-
-            <div class="form-group col-xs-2 mx-2">
-                <input type="submit" value="Submit" class="button_element">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-xs-4 justify-content-between">
+                    <div class="row">
+                        <div class="form-group col-xs-6 mx-3">
+                            <input type="submit" value="Download Files" class="button_element" id="submit">
+                        </div>
+                        <div class="form-group col-xs-6 mx-3">
+                            <input type="submit" value="Generate Code" class="button_element" id="generate">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group col-xs-12 ml-3">
+                        <input type="reset" value="Reset" class="button_element">
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group col-xs-2 mx-2">
-                <input type="reset" value="Reset" class="button_element">
-            </div>
-            
         </div>
+
     </form>
+
+    <div class="container">
+        <div class="row flex-wrap-reverse">
+            <div class="col-12 col-md-6">
+                <div class="hideCode" id="codeDisplay">
+                    <p>HTML</p>
+                    <span class="hideCode" id="copiedNotification">HTML copied</span>
+                    <p id="insertCode"></p>
+                    <button id="copyHTML" onClick="copyHTML()"><i class="fa fa-clipboard"
+                            aria-hidden="true"></i></button>
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="hideCode" id="codePreview">
+                    <p>Preview</p>
+                    <div id="previewCode"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-crossorigin="anonymous"></script>
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-crossorigin="anonymous"></script>
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"></script>
 <script src="./MomentJS/moment.js"></script>
 <script src="./MomentJS/moment-timezone-with-data-10-year-range.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" 
-integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" 
-crossorigin = "anonymous" 
-referrerpolicy = "no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+    integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="script.js"></script>
 
 </html>
